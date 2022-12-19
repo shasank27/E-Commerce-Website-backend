@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const orderRoutes = require("./routes/order");
 const productRoutes = require("./routes/product");
+const stripeRoutes = require("./routes/stripePayment");
 const cors = require("cors");
 
 var app = express();
@@ -24,22 +25,23 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", stripeRoutes);
 
 //connecting database
 mongoose
-    .connect(process.env.DATABASE, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-    })
-    .then(() => {
-        console.log("DB CONNECTED");
-    });
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => {
+    console.log("DB CONNECTED");
+  });
 
 //PORT number
 const port = process.env.PORT;
 
 //listening into port
 app.listen(port, () => {
-    console.log(`App is running on port: ${port}`);
+  console.log(`App is running on port: ${port}`);
 });
