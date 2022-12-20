@@ -2,12 +2,12 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const { v4: uuidv4 } = require("uuid");
 
 exports.makePayment = (req, res) => {
-  const { product, token } = req.body;
-  console.log("PRODUCT", product);
+  const { token, products } = req.body;
+  console.log("PRODUCT", products);
 
   let amount = 0;
-  products.map(product => {
-    amount = amount + product.price;
+  products.map(p => {
+    amount = amount + p.price;
   });
 
   const idempontencyKey = uuidv4();
